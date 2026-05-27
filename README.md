@@ -1,3 +1,3 @@
-# YouTube SPA for to recieve video from YouTube and to create custom queries
+# YouTube SPA for receiving video from YouTube and to creation custom queries
 
 _Tech stack: React, Redux, Ant Design, React router DOM_
