@@ -54,7 +54,7 @@ const MainLayout = () => {
         </LimitedContainer>
       </Header>
       <Content style={{ padding: '20px 0' }}>
-        <LimitedContainer>
+        <LimitedContainer maxWidth={1040}>
           <Outlet />
         </LimitedContainer>
       </Content>

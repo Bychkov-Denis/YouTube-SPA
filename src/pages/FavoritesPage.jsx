@@ -1,5 +1,15 @@
+import { Typography } from 'antd';
+import FavoritesList from '../components/FavoritesList';
+
+const { Title } = Typography;
+
 const FavoritesPage = () => {
-  return <div>FavoritesPage</div>;
+  return (
+    <>
+      <Title level={1}>Избранное</Title>
+      <FavoritesList />
+    </>
+  );
 };
 
 export default FavoritesPage;

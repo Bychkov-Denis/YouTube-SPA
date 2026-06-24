@@ -1,4 +1,4 @@
-const Container = ({ width = 600, children }) => {
+const ContainerFlex = ({ width = 600, children }) => {
   return (
     <div
       style={{
@@ -18,4 +18,4 @@ const Container = ({ width = 600, children }) => {
   );
 };
 
-export default Container;
+export default ContainerFlex;

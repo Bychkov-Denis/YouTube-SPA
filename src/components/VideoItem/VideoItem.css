@@ -1,0 +1,52 @@
+.video-card {
+  width: 100%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  height: 100%;
+}
+
+.video-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.video-card-cover {
+  overflow: hidden;
+  border-radius: 8px 8px 0 0;
+}
+
+.video-card-cover img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.video-card:hover .video-card-cover img {
+  transform: scale(1.05);
+}
+
+.video-title {
+  font-size: 16px !important;
+  margin-bottom: 8px !important;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-height: 44px;
+}
+
+.channel-name {
+  display: block;
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 4px;
+}
+
+.views-count {
+  display: block;
+  font-size: 12px;
+  color: #999;
+}

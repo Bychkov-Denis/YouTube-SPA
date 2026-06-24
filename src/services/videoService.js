@@ -14,7 +14,7 @@ export const videoService = {
     });
   },
   getVideoStatistics: async videoIds => {
-    const ids = Array.isArray(videoIds);
+    const ids = Array.isArray(videoIds) ? videoIds.join(',') : videoIds;
     return videoInstance.get(endpoints.videos.getVideoStatistics, {
       params: {
         id: ids,
