@@ -1,17 +1,24 @@
 import { Card, Typography } from 'antd';
+import { useSelector } from 'react-redux';
 import { formatCountOfViews } from '../../helpers';
+import { selectedVideoViewMode } from '../../redux/videosSlice';
 import './VideoItem.css';
 
 const { Title, Text } = Typography;
 
 const VideoItem = ({ video }) => {
+  const viewVideoMode = useSelector(selectedVideoViewMode);
+  const isGrid = viewVideoMode === 'grid';
+
   return (
     <a href={video.videoUrl} target="_blank" className="video-item-link">
       <Card
         hoverable
-        className="video-card"
+        className={isGrid ? 'video-card' : 'video-card video-card-flex'}
         cover={
-          <div className="video-card-cover">
+          <div
+            className={isGrid ? 'video-card-cover' : 'video-card-cover-flex'}
+          >
             <img alt={video.title} src={video.thumbnail} />
           </div>
         }

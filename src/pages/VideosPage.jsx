@@ -16,8 +16,11 @@ import {
   selectedLoading,
   selectedTotalResults,
   selectedVideos,
+  selectedVideoViewMode,
   setCurrentQueryText,
+  setVideoViewMode,
 } from '../redux/videosSlice';
+import './../App.css';
 
 const { Title, Paragraph, Text } = Typography;
 
@@ -28,6 +31,7 @@ const VideosPage = () => {
   const loading = useSelector(selectedLoading);
   const currentQueryText = useSelector(selectedCurrentQueryText);
   const totalResults = useSelector(selectedTotalResults);
+  const videoViewMode = useSelector(selectedVideoViewMode);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -53,6 +57,10 @@ const VideosPage = () => {
 
   const getVideosBySearchQuery = () => {
     dispatch(searchVideos({ query: currentQueryText }));
+  };
+
+  const changeViewVideoMode = mode => {
+    dispatch(setVideoViewMode(mode));
   };
 
   if (loading) {
@@ -97,7 +105,7 @@ const VideosPage = () => {
     <>
       <div>
         <Title level={1}>Поиск видео</Title>
-        <Space.Compact style={{ width: '100%' }}>
+        <Space.Compact style={{ width: '100%', marginBottom: '40px' }}>
           <Input
             placeholder="Введите название для поиска"
             size="large"
@@ -116,14 +124,24 @@ const VideosPage = () => {
         </Space.Compact>
       </div>
       <div>
-        <Flex justify="space-between" align="center">
+        <Flex
+          justify="space-between"
+          align="center"
+          className="videos-page font-medium"
+        >
           <Paragraph>
             <Text strong>{`Видео по запросу «${currentQueryText}»`}</Text>{' '}
             <Text type="secondary">{totalResults}</Text>
           </Paragraph>
           <Flex gap="small" align="center">
-            <UnorderedListOutlined />
-            <AppstoreOutlined />
+            <UnorderedListOutlined
+              className={videoViewMode === 'flex' ? 'icon-active' : null}
+              onClick={() => changeViewVideoMode('flex')}
+            />
+            <AppstoreOutlined
+              className={videoViewMode === 'grid' ? 'icon-active' : null}
+              onClick={() => changeViewVideoMode('grid')}
+            />
           </Flex>
         </Flex>
         <VideosList />
@@ -139,13 +157,8 @@ const VideosPage = () => {
 
 export default VideosPage;
 
-// *Дописать компонент для отображения видео
-// *Написать функцию хелпер которая в зависимости от числа будет добавлять тыс. млн.
-// *при нажатии кнопки найти вызывать экшен searchVideos в него передать объект {query: currentQueryText}
-// *Переделать структуру: все инлайн стили сделать классами и классы вынести в отдельные css файлы для каждого компонента. Общие стили вынести в App.css
-
-// * Отрисовать избранные запросы списком
-// * В компонент QueryModal добавить флаг isQueryEditing
-// * Написать логику для редактирования
-// * Написать логику для выполнения запроса
-// * Написать логику для удаления запроса
+// * Сделать, чтобы картинка в карточка отображалась корректно, когда viewMode = flex
+// * Переделать регистрацию и авторизацию
+// * в форме оставить только поля email, password, name, при регистрации отправлять все данные, кроме поля confirmPassword
+// * Для авторизации отправлять email и password
+// * Сделать деплой приложения и отправить на проверку

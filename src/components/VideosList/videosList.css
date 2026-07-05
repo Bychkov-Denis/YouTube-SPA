@@ -1,5 +1,11 @@
-.videos-container {
+.videos-container-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 24px;
+}
+
+.videos-container-flex {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }

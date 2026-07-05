@@ -6,6 +6,7 @@ import {
   isRejected,
 } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
+import { saveFavoriteQueriesToLocalStorage } from '../helpers';
 import videoService from '../services/videoService';
 
 const initialState = {
@@ -71,16 +72,24 @@ export const videosSlice = createSlice({
     setVideoViewMode(state, action) {
       state.videoViewMode = action.payload;
     },
+    setFavoriteQueries(state, action) {
+      state.favoriteQueries = action.payload;
+    },
+    clearFavoriteQueries(state) {
+      state.favoriteQueries = [];
+    },
     addFavoriteQueries(state, action) {
       state.favoriteQueries.push({
         id: crypto.randomUUID(),
         ...action.payload,
       });
+      saveFavoriteQueriesToLocalStorage(state.favoriteQueries);
     },
     removeFavoriteQuery(state, action) {
       state.favoriteQueries = state.favoriteQueries.filter(
         query => query.id !== action.payload,
       );
+      saveFavoriteQueriesToLocalStorage(state.favoriteQueries);
     },
     updateFavoriteQuery(state, action) {
       const { id, name, query, orderBy, maxResults } = action.payload;
@@ -95,6 +104,7 @@ export const videosSlice = createSlice({
           maxResults,
         };
       }
+      saveFavoriteQueriesToLocalStorage(state.favoriteQueries);
     },
   },
   extraReducers: builder => {
@@ -120,6 +130,7 @@ export const videosSlice = createSlice({
     selectedVideos: state => state.videos,
     selectedFavoriteQueries: state => state.favoriteQueries,
     selectedLoading: state => state.loading,
+    selectedVideoViewMode: state => state.videoViewMode,
   },
 });
 
@@ -127,6 +138,8 @@ export const {
   setCurrentQueryText,
   setVideoViewMode,
   addFavoriteQueries,
+  setFavoriteQueries,
+  clearFavoriteQueries,
   removeFavoriteQuery,
   updateFavoriteQuery,
 } = videosSlice.actions;
@@ -138,6 +151,7 @@ export const {
   selectedFavoriteQueries,
   selectedLoading,
   selectedCurrentQueryText,
+  selectedVideoViewMode,
 } = videosSlice.selectors;
 
 export default videosSlice.reducer;

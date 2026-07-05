@@ -1,13 +1,20 @@
 import { YoutubeOutlined } from '@ant-design/icons';
 import { Button, Flex, Layout, Menu, theme } from 'antd';
 import { Content, Header } from 'antd/es/layout/layout';
+import { useDispatch } from 'react-redux';
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
-import { deleteTokenFromLocalStorage } from '../helpers';
+import {
+  deleteEmailFromLocalStorage,
+  deleteTokenFromLocalStorage,
+} from '../helpers';
+import { clearFavoriteQueries } from '../redux/videosSlice';
 import LimitedContainer from './LimitedContainer';
 
 const MainLayout = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
+
   const { token } = theme.useToken();
 
   const menuItems = [
@@ -17,6 +24,8 @@ const MainLayout = () => {
 
   const logout = () => {
     deleteTokenFromLocalStorage();
+    dispatch(clearFavoriteQueries());
+    deleteEmailFromLocalStorage();
     navigate('/auth');
   };
 
@@ -35,9 +44,7 @@ const MainLayout = () => {
                 to="/videos"
                 style={{ display: 'flex', alignItems: 'center' }}
               >
-                <YoutubeOutlined
-                  style={{ fontSize: 30, color: token.colorPrimary }}
-                />
+                <YoutubeOutlined style={{ fontSize: 30 }} />
               </NavLink>
               <Menu
                 mode="horizontal"

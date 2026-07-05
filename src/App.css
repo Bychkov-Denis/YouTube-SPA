@@ -1,3 +1,16 @@
 span > svg {
   cursor: pointer;
 }
+
+span > svg:hover {
+  color: var(--ant-color-primary);
+  transition: all 0.3s ease;
+}
+
+.icon-active {
+  color: var(--ant-color-primary);
+}
+
+.videos-page.font-medium {
+  font-size: 18px;
+}

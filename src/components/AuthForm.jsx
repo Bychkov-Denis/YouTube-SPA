@@ -2,11 +2,17 @@ import { YoutubeOutlined } from '@ant-design/icons';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Button, Card, Flex, Form, Input, Typography } from 'antd';
 import { Controller, useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
-import { setTokenToLocalStorage } from '../helpers';
-import { authService } from '../services/authService';
+import {
+  getFavoriteQueriesFromLocalStorage,
+  setEmailToLocalStorage,
+  setTokenToLocalStorage,
+} from '../helpers';
+import { setFavoriteQueries } from '../redux/videosSlice';
+import { userService } from '../services/userService';
 
 const { Paragraph } = Typography;
 
@@ -25,6 +31,7 @@ const authScheme = yup.object({
 });
 
 const AuthForm = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const goToVideosPage = () => {
@@ -47,10 +54,14 @@ const AuthForm = () => {
 
   const auth = async userData => {
     try {
-      const { data } = await authService.login(userData);
+      const { data } = await userService.login(userData);
 
-      if (data.token) {
-        setTokenToLocalStorage(data.token);
+      if (data.access_token) {
+        setTokenToLocalStorage(data.access_token);
+        setEmailToLocalStorage(userData.email);
+
+        const savedQueries = getFavoriteQueriesFromLocalStorage();
+        dispatch(setFavoriteQueries(savedQueries));
       }
 
       reset();

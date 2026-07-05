@@ -1,7 +1,7 @@
 export const endpoints = {
-  auth: {
-    login: 'auth/login',
-    register: '/users/register',
+  user: {
+    register: '/auth/register',
+    login: '/auth/login',
   },
   videos: {
     searchVideos: '/search',

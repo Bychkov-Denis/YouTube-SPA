@@ -1,11 +1,11 @@
 import { endpoints } from '../api/endpoints';
 import userInstance from '../api/userInstance';
 
-export const authService = {
+export const userService = {
   register: userData => {
-    return userInstance.post(endpoints.auth.register, userData);
+    return userInstance.post(endpoints.user.register, userData);
   },
   login: creditionals => {
-    return userInstance.post(endpoints.auth.login, creditionals);
+    return userInstance.post(endpoints.user.login, creditionals);
   },
 };

@@ -1,31 +1,22 @@
 import { YoutubeOutlined } from '@ant-design/icons';
 import { yupResolver } from '@hookform/resolvers/yup';
-import {
-  Button,
-  Card,
-  Flex,
-  Form,
-  Input,
-  InputNumber,
-  Select,
-  Typography,
-} from 'antd';
+import { Button, Card, Flex, Form, Input, Typography } from 'antd';
 import { Controller, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
-import { authService } from '../services/authService';
+import { userService } from '../services/userService';
 
 const { Paragraph } = Typography;
 
 const registrationSheme = yup.object({
-  username: yup
+  name: yup
     .string()
-    .required('Введите логин')
-    .min(6, 'Логин должен быть не менее 6 символов')
+    .required('Введите имя')
+    .min(3, 'Имя должен быть не менее 3 символов')
     .matches(
-      /^[a-zA-Z0-9]+$/,
-      'Логин может содержать только английские буквы и цифры',
+      /^[a-zA-Zа-яёА-ЯЁ]+$/,
+      'Имя может содержать только английские буквы',
     ),
   email: yup.string().required('Введите email').email('Неверный формат email'),
   password: yup
@@ -38,15 +29,10 @@ const registrationSheme = yup.object({
       /[!@#$%^&*(),.?":{}|<>]/,
       'Пароль должен содержать хотя бы один специальный символ',
     ),
-
-  gender: yup.string().required('Введите свой пол'),
-  age: yup
-    .number()
-    .required('Введите возраст')
-    .typeError('Возраст должен быть числом')
-    .min(1, 'Возраст должен быть от 1 до 100 лет')
-    .max(100, 'Возраст должен быть от 1 до 100 лет')
-    .integer('Возраст должен быть целым числом'),
+  confirmPassword: yup
+    .string()
+    .required('Введите подтверждение пароля')
+    .oneOf([yup.ref('password')], 'Пароли должны совпадать'),
 });
 
 const RegistrationForm = () => {
@@ -59,20 +45,21 @@ const RegistrationForm = () => {
     mode: 'onChange',
     resolver: yupResolver(registrationSheme),
     defaultValues: {
-      username: '',
+      name: '',
       email: '',
       password: '',
-      gender: undefined,
-      age: undefined,
+      confirmPassword: '',
     },
   });
 
-  const registration = async userData => {
+  const registration = async data => {
+    const { confirmPassword, ...userData } = data;
+
     try {
-      const { data } = await authService.register(userData);
+      await userService.register(userData);
       reset();
       toast.success(
-        `Пользователь с логином ${data.username} успешно зарегистрирован`,
+        `Пользователь с именем ${userData.name} успешно зарегистрирован`,
       );
     } catch ({ response }) {
       const errorMessage = response?.data?.message;
@@ -105,14 +92,14 @@ const RegistrationForm = () => {
         onFinish={handleSubmit(registration)}
       >
         <Form.Item
-          label="Логин:"
-          name="username"
+          label="Имя:"
+          name="name"
           style={{ marginBottom: '10px' }}
-          help={errors.username?.message}
-          validateStatus={errors.username ? 'error' : ''}
+          help={errors.name?.message}
+          validateStatus={errors.name ? 'error' : ''}
         >
           <Controller
-            name="username"
+            name="name"
             control={control}
             render={({ field }) => (
               <Input {...field} placeholder="Введите логин..." />
@@ -150,47 +137,17 @@ const RegistrationForm = () => {
           />
         </Form.Item>
         <Form.Item
-          label="Пол:"
-          name="gender"
+          label="Пароль"
+          name="confirmPassword"
           style={{ marginBottom: '10px' }}
-          help={errors.gender?.message}
-          validateStatus={errors.gender ? 'error' : ''}
+          help={errors.confirmPassword?.message}
+          validateStatus={errors.confirmPassword ? 'error' : ''}
         >
           <Controller
-            name="gender"
+            name="confirmPassword"
             control={control}
             render={({ field }) => (
-              <Select
-                {...field}
-                allowClear
-                placeholder="Выберите пол..."
-                options={[
-                  { label: 'Мужской', value: 'male' },
-                  { label: 'Женский', value: 'female' },
-                ]}
-                onChange={value => field.onChange(value)}
-              />
-            )}
-          />
-        </Form.Item>
-        <Form.Item
-          label="Возраст:"
-          name="age"
-          style={{ marginBottom: '10px' }}
-          help={errors.age?.message}
-          validateStatus={errors.age ? 'error' : ''}
-        >
-          <Controller
-            name="age"
-            control={control}
-            render={({ field }) => (
-              <InputNumber
-                style={{ width: '100%' }}
-                min={1}
-                max={100}
-                {...field}
-                placeholder="Введите возраст..."
-              />
+              <Input.Password {...field} placeholder="Подтверждение пароля" />
             )}
           />
         </Form.Item>
