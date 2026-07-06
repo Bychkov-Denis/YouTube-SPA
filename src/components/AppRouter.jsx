@@ -4,7 +4,7 @@ import NotFoundPage from '../pages/NotFoundPage';
 import RegistrationPage from '../pages/RegistrationPage';
 import FavoritesPage from './../pages/FavoritesPage';
 import VideosPage from './../pages/VideosPage';
-import MainLayout from './MainLayout';
+import MainLayout from './MainLayout/MainLayout';
 import ProtectedRoute from './ProtectedRoute';
 
 const AppRouter = () => {

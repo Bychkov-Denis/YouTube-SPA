@@ -81,9 +81,11 @@ const FavoritesList = () => {
             <Flex
               justify="space-between"
               align="center"
-              style={{ width: '100%' }}
+              style={{ width: '100%', fontSize: 18 }}
             >
-              <Text bold>{item.name}</Text>
+              <Text bold style={{ fontSize: 18 }}>
+                {item.name}
+              </Text>
               <Flex justify="space-between" align="center" gap="medium">
                 <EditOutlined onClick={() => handleEditQuery(item)} />
                 <DeleteOutlined onClick={() => removeQuery(item.id)} />

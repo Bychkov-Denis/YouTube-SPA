@@ -1,6 +1,6 @@
 import { Button, Flex, Typography } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import ContainerFlex from '../components/ContainerFlex';
+import ContainerFlex from '../components/ContainerFlex/ContainerFlex';
 
 const NotFoundPage = () => {
   const navigate = useNavigate();

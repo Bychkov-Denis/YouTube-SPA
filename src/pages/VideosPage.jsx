@@ -6,7 +6,6 @@ import {
 import { Button, Flex, Input, Space, Typography } from 'antd';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import ContainerFlex from '../components/ContainerFlex';
 import Loader from '../components/Loader';
 import ModalQuery from '../components/ModalQuery/ModalQuery';
 import VideosList from '../components/VideosList/VideosList';
@@ -21,6 +20,7 @@ import {
   setVideoViewMode,
 } from '../redux/videosSlice';
 import './../App.css';
+import ContainerFlex from './../components/ContainerFlex/ContainerFlex';
 
 const { Title, Paragraph, Text } = Typography;
 
@@ -156,9 +156,3 @@ const VideosPage = () => {
 };
 
 export default VideosPage;
-
-// * Сделать, чтобы картинка в карточка отображалась корректно, когда viewMode = flex
-// * Переделать регистрацию и авторизацию
-// * в форме оставить только поля email, password, name, при регистрации отправлять все данные, кроме поля confirmPassword
-// * Для авторизации отправлять email и password
-// * Сделать деплой приложения и отправить на проверку

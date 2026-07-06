@@ -1,0 +1,8 @@
+.layout {
+  min-height: 100vh;
+}
+
+.header {
+  padding: 0;
+  background-color: var(--ant-color-bg-container);
+}

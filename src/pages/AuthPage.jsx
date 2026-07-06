@@ -1,5 +1,5 @@
 import AuthForm from '../components/AuthForm';
-import ContainerFlex from '../components/ContainerFlex';
+import ContainerFlex from '../components/ContainerFlex/ContainerFlex';
 
 const AuthPage = () => {
   return (

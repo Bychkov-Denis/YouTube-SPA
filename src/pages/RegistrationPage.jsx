@@ -1,4 +1,4 @@
-import ContainerFlex from '../components/ContainerFlex';
+import ContainerFlex from '../components/ContainerFlex/ContainerFlex';
 import RegistrationForm from '../components/registrationForm';
 
 const RegistrationPage = () => {

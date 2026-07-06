@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import { selectedVideos, selectedVideoViewMode } from '../../redux/videosSlice';
 import VideoItem from '../VideoItem/VideoItem';
-import './videosList.css';
+import styles from './videosList.module.css';
 
 const VideosList = () => {
   const videos = useSelector(selectedVideos);
@@ -9,7 +9,13 @@ const VideosList = () => {
   const isGrid = videoViewMode === 'grid';
 
   return (
-    <div className={isGrid ? 'videos-container-grid' : 'videos-container-flex'}>
+    <div
+      className={
+        isGrid
+          ? styles['videos-container-grid']
+          : styles['videos-container-flex']
+      }
+    >
       {videos.map(video => (
         <VideoItem video={video} key={video.id} />
       ))}

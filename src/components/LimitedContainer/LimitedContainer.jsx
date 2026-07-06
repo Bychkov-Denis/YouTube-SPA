@@ -1,11 +1,11 @@
+import styles from './limitedContainer.module.css';
+
 const LimitedContainer = ({ children, maxWidth = 1040 }) => {
   return (
     <div
+      className={styles.container}
       style={{
         maxWidth: maxWidth,
-        margin: '0 auto',
-        width: '100%',
-        padding: '0 20px',
       }}
     >
       {children}
